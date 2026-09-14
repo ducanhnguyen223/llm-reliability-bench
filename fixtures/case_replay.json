@@ -1,0 +1,54 @@
+{
+  "dataset": "dependency-change-replay-v1",
+  "semantic_threshold": 0.9,
+  "ttl_seconds": 300,
+  "scenarios": [
+    {
+      "id": "source_revision",
+      "events": [
+        {"id":"SRC-1","at_seconds":0,"query":"QT-12 yêu cầu lưu hồ sơ bao lâu?","answer":"5 năm","dependencies":{"source":"QT-12","revision":3}},
+        {"id":"SRC-2","at_seconds":30,"query":"Thời hạn lưu theo QT-12 là mấy năm?","answer":"5 năm","dependencies":{"source":"QT-12","revision":3},"candidate_id":"SRC-1","candidate_similarity":0.94},
+        {"id":"SRC-3","at_seconds":60,"query":"QT-12 yêu cầu lưu hồ sơ bao lâu?","answer":"7 năm","dependencies":{"source":"QT-12","revision":4},"candidate_id":"SRC-1","candidate_similarity":1.0}
+      ]
+    },
+    {
+      "id": "record_state",
+      "events": [
+        {"id":"STATE-1","at_seconds":0,"query":"Có thể hủy đơn DH-778 không?","answer":"Có","dependencies":{"order":"DH-778","state_revision":8,"state":"packing"}},
+        {"id":"STATE-2","at_seconds":30,"query":"DH-778 còn hủy được chứ?","answer":"Có","dependencies":{"order":"DH-778","state_revision":8,"state":"packing"},"candidate_id":"STATE-1","candidate_similarity":0.93},
+        {"id":"STATE-3","at_seconds":60,"query":"Có thể hủy đơn DH-778 không?","answer":"Không","dependencies":{"order":"DH-778","state_revision":9,"state":"handed_over"},"candidate_id":"STATE-1","candidate_similarity":1.0}
+      ]
+    },
+    {
+      "id": "actor_role",
+      "events": [
+        {"id":"ROLE-1","at_seconds":0,"query":"Tôi có thể duyệt RF-91 không?","answer":"Không","dependencies":{"actor_role":"support_agent","auth_revision":4}},
+        {"id":"ROLE-2","at_seconds":30,"query":"Vai trò của tôi được duyệt RF-91 chứ?","answer":"Không","dependencies":{"actor_role":"support_agent","auth_revision":4},"candidate_id":"ROLE-1","candidate_similarity":0.92},
+        {"id":"ROLE-3","at_seconds":60,"query":"Tôi có thể duyệt RF-91 không?","answer":"Có","dependencies":{"actor_role":"finance_manager","auth_revision":4},"candidate_id":"ROLE-1","candidate_similarity":1.0}
+      ]
+    },
+    {
+      "id": "prompt_model_version",
+      "events": [
+        {"id":"MODEL-1","at_seconds":0,"query":"Tóm tắt hồ sơ HS-18.","answer":"Hồ sơ HS-18 đang chờ duyệt.","dependencies":{"prompt":"summary-v1","model":"model-v1"}},
+        {"id":"MODEL-2","at_seconds":30,"query":"Cho biết ngắn gọn trạng thái HS-18.","answer":"Hồ sơ HS-18 đang chờ duyệt.","dependencies":{"prompt":"summary-v1","model":"model-v1"},"candidate_id":"MODEL-1","candidate_similarity":0.91},
+        {"id":"MODEL-3","at_seconds":60,"query":"Tóm tắt hồ sơ HS-18.","answer":"{\"id\":\"HS-18\",\"status\":\"pending\"}","dependencies":{"prompt":"summary-json-v2","model":"model-v2"},"candidate_id":"MODEL-1","candidate_similarity":1.0}
+      ]
+    },
+    {
+      "id": "policy_validity",
+      "events": [
+        {"id":"POLICY-1","at_seconds":0,"query":"Phí rút trước hạn hiện tại?","answer":"1%","dependencies":{"policy":"fee-policy","revision":1,"as_of":"2026-08-31"}},
+        {"id":"POLICY-2","at_seconds":30,"query":"Mức phí rút trước hạn đang áp dụng?","answer":"1%","dependencies":{"policy":"fee-policy","revision":1,"as_of":"2026-08-31"},"candidate_id":"POLICY-1","candidate_similarity":0.95},
+        {"id":"POLICY-3","at_seconds":60,"query":"Phí rút trước hạn hiện tại?","answer":"1.5%","dependencies":{"policy":"fee-policy","revision":2,"as_of":"2026-09-01"},"candidate_id":"POLICY-1","candidate_similarity":1.0}
+      ]
+    },
+    {
+      "id": "ttl_expiry",
+      "events": [
+        {"id":"TTL-1","at_seconds":0,"query":"Trạng thái DV-55?","answer":"Đang hoạt động","dependencies":{"service":"DV-55","revision":2}},
+        {"id":"TTL-2","at_seconds":301,"query":"DV-55 hiện thế nào?","answer":"Đang hoạt động","dependencies":{"service":"DV-55","revision":2},"candidate_id":"TTL-1","candidate_similarity":0.94}
+      ]
+    }
+  ]
+}

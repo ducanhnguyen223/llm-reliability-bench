@@ -15,6 +15,9 @@ With `multilingual-e5-small`, several answer-changing pairs scored above valid p
 ```bash
 python3 -m unittest discover -s tests -q
 python3 benchmark.py
+python3 replay.py
 ```
 
 The default run uses frozen similarity measurements, so it needs no API key, model download or third-party package.
+
+The replay compares no cache, exact matching, semantic similarity with a TTL, and a dependency-aware EvidenceGate. Changes to source revision, record state, actor role, prompt/model version or policy validity must force a fresh answer even when the query is identical.

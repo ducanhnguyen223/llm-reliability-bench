@@ -3,6 +3,7 @@ import unittest
 from pathlib import Path
 
 from benchmark import REQUIRED_CATEGORIES, evaluate, validate_contrast_set
+from replay import run_replay
 
 
 class BenchmarkTest(unittest.TestCase):
@@ -27,6 +28,14 @@ class BenchmarkTest(unittest.TestCase):
         dataset = json.loads(Path("fixtures/vietnamese_business_contrasts.json").read_text())
         summary = validate_contrast_set(dataset)
         self.assertEqual(summary, {"cases": 24, "families": 8, "categories": len(REQUIRED_CATEGORIES)})
+
+    def test_evidence_gate_reuses_only_unchanged_dependencies(self):
+        fixture = json.loads(Path("fixtures/case_replay.json").read_text())
+        results = {item["strategy"]: item["counts"] for item in run_replay(fixture)["results"]}
+        self.assertGreater(results["semantic_ttl"]["false_reuse"], 0)
+        self.assertEqual(results["evidence_gate"]["false_reuse"], 0)
+        self.assertGreater(results["evidence_gate"]["true_hits"], 0)
+        self.assertEqual(results["no_cache"]["upstream_calls"], results["no_cache"]["requests"])
 
 
 if __name__ == "__main__":

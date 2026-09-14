@@ -1,0 +1,395 @@
+{
+  "dataset": "dependency-change-replay-v1",
+  "threshold": 0.9,
+  "ttl_seconds": 300,
+  "results": [
+    {
+      "strategy": "no_cache",
+      "counts": {
+        "requests": 17,
+        "hits": 0,
+        "true_hits": 0,
+        "false_reuse": 0,
+        "upstream_calls": 17
+      },
+      "decisions": [
+        {
+          "scenario": "source_revision",
+          "event": "SRC-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "source_revision",
+          "event": "SRC-2",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "source_revision",
+          "event": "SRC-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-2",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-2",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-2",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-2",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "ttl_expiry",
+          "event": "TTL-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "ttl_expiry",
+          "event": "TTL-2",
+          "decision": "upstream"
+        }
+      ]
+    },
+    {
+      "strategy": "exact",
+      "counts": {
+        "requests": 17,
+        "hits": 5,
+        "true_hits": 0,
+        "false_reuse": 5,
+        "upstream_calls": 12
+      },
+      "decisions": [
+        {
+          "scenario": "source_revision",
+          "event": "SRC-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "source_revision",
+          "event": "SRC-2",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "source_revision",
+          "event": "SRC-3",
+          "decision": "false_reuse"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-2",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-3",
+          "decision": "false_reuse"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-2",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-3",
+          "decision": "false_reuse"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-2",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-3",
+          "decision": "false_reuse"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-2",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-3",
+          "decision": "false_reuse"
+        },
+        {
+          "scenario": "ttl_expiry",
+          "event": "TTL-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "ttl_expiry",
+          "event": "TTL-2",
+          "decision": "upstream"
+        }
+      ]
+    },
+    {
+      "strategy": "semantic_ttl",
+      "counts": {
+        "requests": 17,
+        "hits": 10,
+        "true_hits": 5,
+        "false_reuse": 5,
+        "upstream_calls": 7
+      },
+      "decisions": [
+        {
+          "scenario": "source_revision",
+          "event": "SRC-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "source_revision",
+          "event": "SRC-2",
+          "decision": "reuse"
+        },
+        {
+          "scenario": "source_revision",
+          "event": "SRC-3",
+          "decision": "false_reuse"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-2",
+          "decision": "reuse"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-3",
+          "decision": "false_reuse"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-2",
+          "decision": "reuse"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-3",
+          "decision": "false_reuse"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-2",
+          "decision": "reuse"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-3",
+          "decision": "false_reuse"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-2",
+          "decision": "reuse"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-3",
+          "decision": "false_reuse"
+        },
+        {
+          "scenario": "ttl_expiry",
+          "event": "TTL-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "ttl_expiry",
+          "event": "TTL-2",
+          "decision": "upstream"
+        }
+      ]
+    },
+    {
+      "strategy": "evidence_gate",
+      "counts": {
+        "requests": 17,
+        "hits": 5,
+        "true_hits": 5,
+        "false_reuse": 0,
+        "upstream_calls": 12
+      },
+      "decisions": [
+        {
+          "scenario": "source_revision",
+          "event": "SRC-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "source_revision",
+          "event": "SRC-2",
+          "decision": "reuse"
+        },
+        {
+          "scenario": "source_revision",
+          "event": "SRC-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-2",
+          "decision": "reuse"
+        },
+        {
+          "scenario": "record_state",
+          "event": "STATE-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-2",
+          "decision": "reuse"
+        },
+        {
+          "scenario": "actor_role",
+          "event": "ROLE-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-2",
+          "decision": "reuse"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-2",
+          "decision": "reuse"
+        },
+        {
+          "scenario": "policy_validity",
+          "event": "POLICY-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "ttl_expiry",
+          "event": "TTL-1",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "ttl_expiry",
+          "event": "TTL-2",
+          "decision": "upstream"
+        }
+      ]
+    }
+  ]
+}
