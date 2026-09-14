@@ -2,15 +2,26 @@
   "dataset": "dependency-change-replay-v1",
   "threshold": 0.9,
   "ttl_seconds": 300,
+  "latency_ms": null,
+  "token_usage": null,
+  "cost": null,
+  "measurement_note": "Deterministic replay measures safety and upstream-call counts; no model is called, so latency, tokens and cost are not fabricated.",
   "results": [
     {
       "strategy": "no_cache",
       "counts": {
-        "requests": 17,
+        "requests": 18,
         "hits": 0,
         "true_hits": 0,
         "false_reuse": 0,
-        "upstream_calls": 17
+        "upstream_calls": 18,
+        "reusable_cases": 7,
+        "unnecessary_invalidations": 7,
+        "stale_cases": 5,
+        "stale_detected": 5,
+        "true_hit_rate": 0.0,
+        "false_reuse_rate": 0.0,
+        "stale_detection_rate": 1.0
       },
       "decisions": [
         {
@@ -71,6 +82,11 @@
         {
           "scenario": "prompt_model_version",
           "event": "MODEL-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-4",
           "decision": "upstream"
         },
         {
@@ -103,11 +119,18 @@
     {
       "strategy": "exact",
       "counts": {
-        "requests": 17,
-        "hits": 5,
-        "true_hits": 0,
+        "requests": 18,
+        "hits": 6,
+        "true_hits": 1,
         "false_reuse": 5,
-        "upstream_calls": 12
+        "upstream_calls": 12,
+        "reusable_cases": 7,
+        "unnecessary_invalidations": 6,
+        "stale_cases": 5,
+        "stale_detected": 0,
+        "true_hit_rate": 0.14285714285714285,
+        "false_reuse_rate": 1.0,
+        "stale_detection_rate": 0.0
       },
       "decisions": [
         {
@@ -169,6 +192,11 @@
           "scenario": "prompt_model_version",
           "event": "MODEL-3",
           "decision": "false_reuse"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-4",
+          "decision": "reuse"
         },
         {
           "scenario": "policy_validity",
@@ -200,11 +228,18 @@
     {
       "strategy": "semantic_ttl",
       "counts": {
-        "requests": 17,
-        "hits": 10,
-        "true_hits": 5,
+        "requests": 18,
+        "hits": 11,
+        "true_hits": 6,
         "false_reuse": 5,
-        "upstream_calls": 7
+        "upstream_calls": 7,
+        "reusable_cases": 7,
+        "unnecessary_invalidations": 1,
+        "stale_cases": 5,
+        "stale_detected": 0,
+        "true_hit_rate": 0.8571428571428571,
+        "false_reuse_rate": 1.0,
+        "stale_detection_rate": 0.0
       },
       "decisions": [
         {
@@ -266,6 +301,11 @@
           "scenario": "prompt_model_version",
           "event": "MODEL-3",
           "decision": "false_reuse"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-4",
+          "decision": "reuse"
         },
         {
           "scenario": "policy_validity",
@@ -297,11 +337,18 @@
     {
       "strategy": "evidence_gate",
       "counts": {
-        "requests": 17,
+        "requests": 18,
         "hits": 5,
         "true_hits": 5,
         "false_reuse": 0,
-        "upstream_calls": 12
+        "upstream_calls": 13,
+        "reusable_cases": 7,
+        "unnecessary_invalidations": 2,
+        "stale_cases": 5,
+        "stale_detected": 5,
+        "true_hit_rate": 0.7142857142857143,
+        "false_reuse_rate": 0.0,
+        "stale_detection_rate": 1.0
       },
       "decisions": [
         {
@@ -362,6 +409,11 @@
         {
           "scenario": "prompt_model_version",
           "event": "MODEL-3",
+          "decision": "upstream"
+        },
+        {
+          "scenario": "prompt_model_version",
+          "event": "MODEL-4",
           "decision": "upstream"
         },
         {

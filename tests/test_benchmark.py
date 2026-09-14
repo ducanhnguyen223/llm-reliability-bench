@@ -35,6 +35,8 @@ class BenchmarkTest(unittest.TestCase):
         self.assertGreater(results["semantic_ttl"]["false_reuse"], 0)
         self.assertEqual(results["evidence_gate"]["false_reuse"], 0)
         self.assertGreater(results["evidence_gate"]["true_hits"], 0)
+        self.assertEqual(results["evidence_gate"]["stale_detection_rate"], 1)
+        self.assertGreater(results["evidence_gate"]["unnecessary_invalidations"], 0)
         self.assertEqual(results["no_cache"]["upstream_calls"], results["no_cache"]["requests"])
 
 

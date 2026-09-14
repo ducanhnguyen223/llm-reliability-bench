@@ -6,12 +6,25 @@ from pathlib import Path
 
 
 def run_strategy(scenarios, strategy, threshold=0.9, ttl_seconds=300):
-    counts = {"requests": 0, "hits": 0, "true_hits": 0, "false_reuse": 0, "upstream_calls": 0}
+    counts = {
+        "requests": 0,
+        "hits": 0,
+        "true_hits": 0,
+        "false_reuse": 0,
+        "upstream_calls": 0,
+        "reusable_cases": 0,
+        "unnecessary_invalidations": 0,
+        "stale_cases": 0,
+        "stale_detected": 0,
+    }
     decisions = []
     for scenario in scenarios:
         cache = {}
         for event in scenario["events"]:
             counts["requests"] += 1
+            gold_candidate = cache.get(event.get("candidate_id"))
+            if gold_candidate:
+                counts["reusable_cases" if gold_candidate["answer"] == event["answer"] else "stale_cases"] += 1
             candidate = None
             if strategy == "exact":
                 candidate = next((item for item in cache.values() if item["query"] == event["query"]), None)
@@ -32,7 +45,12 @@ def run_strategy(scenarios, strategy, threshold=0.9, ttl_seconds=300):
                 counts["upstream_calls"] += 1
                 cache[event["id"]] = event
                 decision = "upstream"
+                if gold_candidate:
+                    counts["unnecessary_invalidations" if gold_candidate["answer"] == event["answer"] else "stale_detected"] += 1
             decisions.append({"scenario": scenario["id"], "event": event["id"], "decision": decision})
+    counts["true_hit_rate"] = counts["true_hits"] / counts["reusable_cases"] if counts["reusable_cases"] else 0
+    counts["false_reuse_rate"] = counts["false_reuse"] / counts["stale_cases"] if counts["stale_cases"] else 0
+    counts["stale_detection_rate"] = counts["stale_detected"] / counts["stale_cases"] if counts["stale_cases"] else 0
     return {"strategy": strategy, "counts": counts, "decisions": decisions}
 
 
@@ -41,6 +59,10 @@ def run_replay(fixture):
         "dataset": fixture["dataset"],
         "threshold": fixture["semantic_threshold"],
         "ttl_seconds": fixture["ttl_seconds"],
+        "latency_ms": None,
+        "token_usage": None,
+        "cost": None,
+        "measurement_note": "Deterministic replay measures safety and upstream-call counts; no model is called, so latency, tokens and cost are not fabricated.",
         "results": [
             run_strategy(fixture["scenarios"], strategy, fixture["semantic_threshold"], fixture["ttl_seconds"])
             for strategy in ("no_cache", "exact", "semantic_ttl", "evidence_gate")

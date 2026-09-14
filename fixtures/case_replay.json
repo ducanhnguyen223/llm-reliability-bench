@@ -32,7 +32,8 @@
       "events": [
         {"id":"MODEL-1","at_seconds":0,"query":"Tóm tắt hồ sơ HS-18.","answer":"Hồ sơ HS-18 đang chờ duyệt.","dependencies":{"prompt":"summary-v1","model":"model-v1"}},
         {"id":"MODEL-2","at_seconds":30,"query":"Cho biết ngắn gọn trạng thái HS-18.","answer":"Hồ sơ HS-18 đang chờ duyệt.","dependencies":{"prompt":"summary-v1","model":"model-v1"},"candidate_id":"MODEL-1","candidate_similarity":0.91},
-        {"id":"MODEL-3","at_seconds":60,"query":"Tóm tắt hồ sơ HS-18.","answer":"{\"id\":\"HS-18\",\"status\":\"pending\"}","dependencies":{"prompt":"summary-json-v2","model":"model-v2"},"candidate_id":"MODEL-1","candidate_similarity":1.0}
+        {"id":"MODEL-3","at_seconds":60,"query":"Tóm tắt hồ sơ HS-18.","answer":"{\"id\":\"HS-18\",\"status\":\"pending\"}","dependencies":{"prompt":"summary-json-v2","model":"model-v2"},"candidate_id":"MODEL-1","candidate_similarity":1.0},
+        {"id":"MODEL-4","at_seconds":90,"query":"Tóm tắt hồ sơ HS-18.","answer":"Hồ sơ HS-18 đang chờ duyệt.","dependencies":{"prompt":"summary-v1","model":"model-v2"},"candidate_id":"MODEL-1","candidate_similarity":1.0}
       ]
     },
     {
