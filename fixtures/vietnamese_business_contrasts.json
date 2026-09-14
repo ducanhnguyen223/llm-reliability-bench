@@ -1,0 +1,151 @@
+{
+  "dataset": "vietnamese-business-contrasts-v1",
+  "language": "vi",
+  "label_policy": "same_answer is derived from the explicit synthetic facts and context on both sides",
+  "cases": [
+    {
+      "id": "ACC-01", "family": "customer_status_accents", "split": "development", "category": "diacritics", "same_answer": true,
+      "left": {"query": "Khách hàng KH-1042 đang ở trạng thái nào?", "facts": {"customer_id": "KH-1042", "status": "chờ xác minh"}},
+      "right": {"query": "Trang thai hien tai cua KH-1042?", "facts": {"customer_id": "KH-1042", "status": "chờ xác minh"}},
+      "gold_reason": "Same customer and same status; only Vietnamese diacritics differ."
+    },
+    {
+      "id": "ACC-02", "family": "customer_status_accents", "split": "development", "category": "diacritics", "same_answer": false,
+      "left": {"query": "KH-1042 đã được xác minh chưa?", "facts": {"customer_id": "KH-1042", "status": "chờ xác minh"}},
+      "right": {"query": "KH-1042 da duoc xac minh", "facts": {"customer_id": "KH-1042", "status": "đã xác minh"}},
+      "gold_reason": "The wording is close, but the source status changes the answer."
+    },
+    {
+      "id": "ACC-03", "family": "customer_status_accents", "split": "development", "category": "diacritics", "same_answer": false,
+      "left": {"query": "Trạng thái KH-1042?", "facts": {"customer_id": "KH-1042", "status": "chờ xác minh"}},
+      "right": {"query": "Trang thai KH-1047?", "facts": {"customer_id": "KH-1047", "status": "đã khóa"}},
+      "gold_reason": "Near-identical text refers to a different customer and status."
+    },
+    {
+      "id": "NEG-01", "family": "invoice_negation", "split": "development", "category": "negation", "same_answer": true,
+      "left": {"query": "Hóa đơn HD-220 chưa được thanh toán, xử lý thế nào?", "facts": {"invoice_id": "HD-220", "paid": false}},
+      "right": {"query": "Cần làm gì khi HD-220 còn nợ?", "facts": {"invoice_id": "HD-220", "paid": false}},
+      "gold_reason": "Both facts say the same invoice remains unpaid."
+    },
+    {
+      "id": "NEG-02", "family": "invoice_negation", "split": "development", "category": "negation", "same_answer": false,
+      "left": {"query": "HD-220 chưa thanh toán.", "facts": {"invoice_id": "HD-220", "paid": false}},
+      "right": {"query": "HD-220 không còn chưa thanh toán.", "facts": {"invoice_id": "HD-220", "paid": true}},
+      "gold_reason": "Double negation flips the payment state."
+    },
+    {
+      "id": "NEG-03", "family": "invoice_negation", "split": "development", "category": "negation", "same_answer": false,
+      "left": {"query": "Gửi nhắc nợ cho HD-220.", "facts": {"invoice_id": "HD-220", "paid": false}},
+      "right": {"query": "Không gửi nhắc nợ cho HD-220.", "facts": {"invoice_id": "HD-220", "paid": false, "collection_hold": true}},
+      "gold_reason": "A collection hold changes the permitted action."
+    },
+    {
+      "id": "SHORT-01", "family": "short_order_queries", "split": "development", "category": "short_query", "same_answer": true,
+      "left": {"query": "Đơn DH-778?", "facts": {"order_id": "DH-778", "status": "đang đóng gói"}},
+      "right": {"query": "Trạng thái đơn hàng DH-778 là gì?", "facts": {"order_id": "DH-778", "status": "đang đóng gói"}},
+      "gold_reason": "The short query resolves to the same explicit order fact."
+    },
+    {
+      "id": "SHORT-02", "family": "short_order_queries", "split": "development", "category": "short_query", "same_answer": false,
+      "left": {"query": "DH-778?", "facts": {"order_id": "DH-778", "status": "đang đóng gói"}},
+      "right": {"query": "DH-779?", "facts": {"order_id": "DH-779", "status": "đã hủy"}},
+      "gold_reason": "A one-character ID change selects a different order."
+    },
+    {
+      "id": "SHORT-03", "family": "short_order_queries", "split": "development", "category": "short_query", "same_answer": false,
+      "left": {"query": "Hủy?", "facts": {"order_id": "DH-778", "status": "đang đóng gói", "cancel_allowed": true}},
+      "right": {"query": "Hủy?", "facts": {"order_id": "DH-778", "status": "đã bàn giao", "cancel_allowed": false}},
+      "gold_reason": "Identical underspecified queries have different answers after state changes."
+    },
+    {
+      "id": "ID-01", "family": "near_invoice_ids", "split": "development", "category": "near_id", "same_answer": true,
+      "left": {"query": "Kiểm tra HD-5018.", "facts": {"invoice_id": "HD-5018", "amount_vnd": 2500000}},
+      "right": {"query": "Cho tôi thông tin hóa đơn HD-5018.", "facts": {"invoice_id": "HD-5018", "amount_vnd": 2500000}},
+      "gold_reason": "Same identifier and amount."
+    },
+    {
+      "id": "ID-02", "family": "near_invoice_ids", "split": "development", "category": "near_id", "same_answer": false,
+      "left": {"query": "Số tiền HD-5018?", "facts": {"invoice_id": "HD-5018", "amount_vnd": 2500000}},
+      "right": {"query": "Số tiền HD-501B?", "facts": {"invoice_id": "HD-501B", "amount_vnd": 5200000}},
+      "gold_reason": "Digit 8 and letter B identify different invoices."
+    },
+    {
+      "id": "ID-03", "family": "near_invoice_ids", "split": "development", "category": "near_id", "same_answer": false,
+      "left": {"query": "HD-5018 đã trả chưa?", "facts": {"invoice_id": "HD-5018", "paid": true}},
+      "right": {"query": "HD-5108 đã trả chưa?", "facts": {"invoice_id": "HD-5108", "paid": false}},
+      "gold_reason": "Transposed digits select a different payment record."
+    },
+    {
+      "id": "NUM-01", "family": "quota_units", "split": "development", "category": "numeric_unit", "same_answer": true,
+      "left": {"query": "Gói còn 5 GB dung lượng.", "facts": {"remaining": 5, "unit": "GB"}},
+      "right": {"query": "Dung lượng khả dụng là 5120 MB.", "facts": {"remaining": 5120, "unit": "MB", "conversion": "1 GB = 1024 MB"}},
+      "gold_reason": "The explicit conversion makes the quantities equal."
+    },
+    {
+      "id": "NUM-02", "family": "quota_units", "split": "development", "category": "numeric_unit", "same_answer": false,
+      "left": {"query": "Gói còn 5 GB.", "facts": {"remaining": 5, "unit": "GB"}},
+      "right": {"query": "Gói còn 5 MB.", "facts": {"remaining": 5, "unit": "MB"}},
+      "gold_reason": "Same number with a different unit changes the quantity."
+    },
+    {
+      "id": "NUM-03", "family": "quota_units", "split": "development", "category": "numeric_unit", "same_answer": false,
+      "left": {"query": "Hạn mức là 15 triệu đồng.", "facts": {"limit_vnd": 15000000}},
+      "right": {"query": "Hạn mức là 50 triệu đồng.", "facts": {"limit_vnd": 50000000}},
+      "gold_reason": "A small textual digit change materially changes the limit."
+    },
+    {
+      "id": "PERM-01", "family": "refund_permissions", "split": "holdout", "category": "permission", "same_answer": true,
+      "left": {"query": "Tôi có thể duyệt hoàn tiền RF-91 không?", "facts": {"role": "finance_manager", "refund_id": "RF-91", "approve": true}},
+      "right": {"query": "Quản lý tài chính được phê duyệt RF-91 chứ?", "facts": {"role": "finance_manager", "refund_id": "RF-91", "approve": true}},
+      "gold_reason": "Same role, refund and permission."
+    },
+    {
+      "id": "PERM-02", "family": "refund_permissions", "split": "holdout", "category": "permission", "same_answer": false,
+      "left": {"query": "Duyệt hoàn tiền RF-91.", "facts": {"role": "finance_manager", "refund_id": "RF-91", "approve": true}},
+      "right": {"query": "Duyệt hoàn tiền RF-91.", "facts": {"role": "support_agent", "refund_id": "RF-91", "approve": false}},
+      "gold_reason": "Identical query and object must not cross authorization scope."
+    },
+    {
+      "id": "PERM-03", "family": "refund_permissions", "split": "holdout", "category": "permission", "same_answer": false,
+      "left": {"query": "RF-91 có thể được duyệt.", "facts": {"auth_revision": 4, "approve": true}},
+      "right": {"query": "RF-91 có thể được duyệt.", "facts": {"auth_revision": 5, "approve": false}},
+      "gold_reason": "A newer authorization revision revokes the action."
+    },
+    {
+      "id": "DATE-01", "family": "policy_effective_dates", "split": "holdout", "category": "effective_date", "same_answer": true,
+      "left": {"query": "Ngày 05/09/2026, phí rút trước hạn là bao nhiêu?", "facts": {"effective_from": "2026-09-01", "fee_percent": 1.5}},
+      "right": {"query": "Mức phí áp dụng sau 01/09/2026?", "facts": {"effective_from": "2026-09-01", "fee_percent": 1.5}},
+      "gold_reason": "Both dates select the same policy version."
+    },
+    {
+      "id": "DATE-02", "family": "policy_effective_dates", "split": "holdout", "category": "effective_date", "same_answer": false,
+      "left": {"query": "Phí ngày 31/08/2026?", "facts": {"effective_until": "2026-08-31", "fee_percent": 1.0}},
+      "right": {"query": "Phí ngày 01/09/2026?", "facts": {"effective_from": "2026-09-01", "fee_percent": 1.5}},
+      "gold_reason": "Adjacent dates fall on opposite sides of a policy boundary."
+    },
+    {
+      "id": "DATE-03", "family": "policy_effective_dates", "split": "holdout", "category": "effective_date", "same_answer": false,
+      "left": {"query": "Chính sách hiện hành miễn phí.", "facts": {"as_of": "2026-08-20", "fee_percent": 0}},
+      "right": {"query": "Chính sách hiện hành miễn phí.", "facts": {"as_of": "2026-09-05", "fee_percent": 1.5}},
+      "gold_reason": "The same relative wording resolves differently at another date."
+    },
+    {
+      "id": "REV-01", "family": "document_revisions", "split": "holdout", "category": "source_revision", "same_answer": true,
+      "left": {"query": "Thời hạn lưu hồ sơ theo QT-12 v3?", "facts": {"document": "QT-12", "revision": 3, "retention_years": 5}},
+      "right": {"query": "QT-12 bản 3 yêu cầu lưu bao lâu?", "facts": {"document": "QT-12", "revision": 3, "retention_years": 5}},
+      "gold_reason": "Same source revision and retention rule."
+    },
+    {
+      "id": "REV-02", "family": "document_revisions", "split": "holdout", "category": "source_revision", "same_answer": false,
+      "left": {"query": "Thời hạn lưu hồ sơ theo QT-12?", "facts": {"document": "QT-12", "revision": 3, "retention_years": 5}},
+      "right": {"query": "Thời hạn lưu hồ sơ theo QT-12?", "facts": {"document": "QT-12", "revision": 4, "retention_years": 7}},
+      "gold_reason": "Identical query must be re-evaluated after the source revision changes."
+    },
+    {
+      "id": "REV-03", "family": "document_revisions", "split": "holdout", "category": "source_revision", "same_answer": false,
+      "left": {"query": "QT-12 yêu cầu lưu 5 năm.", "facts": {"document": "QT-12", "revision": 3, "retention_years": 5}},
+      "right": {"query": "QT-12 yêu cầu lưu 5 năm.", "facts": {"document": "QT-12", "revision": 4, "retention_years": 7}},
+      "gold_reason": "A cached claim becomes stale under the newer source."
+    }
+  ]
+}

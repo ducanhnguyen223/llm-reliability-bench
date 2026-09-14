@@ -1,6 +1,8 @@
+import json
 import unittest
+from pathlib import Path
 
-from benchmark import evaluate
+from benchmark import REQUIRED_CATEGORIES, evaluate, validate_contrast_set
 
 
 class BenchmarkTest(unittest.TestCase):
@@ -20,6 +22,11 @@ class BenchmarkTest(unittest.TestCase):
         self.assertEqual(report["threshold"], 1.000001)
         self.assertEqual(report["metrics"]["holdout"]["scope_blocked"], 1)
         self.assertFalse(report["recommend_enable"])
+
+    def test_vietnamese_contrast_set_is_complete_and_split_safe(self):
+        dataset = json.loads(Path("fixtures/vietnamese_business_contrasts.json").read_text())
+        summary = validate_contrast_set(dataset)
+        self.assertEqual(summary, {"cases": 24, "families": 8, "categories": len(REQUIRED_CATEGORIES)})
 
 
 if __name__ == "__main__":

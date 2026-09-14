@@ -6,6 +6,38 @@ import json
 import math
 from pathlib import Path
 
+REQUIRED_CATEGORIES = {
+    "diacritics",
+    "negation",
+    "short_query",
+    "near_id",
+    "numeric_unit",
+    "permission",
+    "effective_date",
+    "source_revision",
+}
+
+
+def validate_contrast_set(dataset):
+    cases = dataset["cases"]
+    ids = [case["id"] for case in cases]
+    if len(ids) != len(set(ids)):
+        raise ValueError("contrast case ids must be unique")
+    missing = REQUIRED_CATEGORIES - {case["category"] for case in cases}
+    if missing:
+        raise ValueError(f"missing categories: {', '.join(sorted(missing))}")
+    family_splits = {}
+    for case in cases:
+        family_splits.setdefault(case["family"], set()).add(case["split"])
+        if case["split"] not in {"development", "holdout"}:
+            raise ValueError(f"invalid split for {case['id']}")
+        if not case["left"]["facts"] or not case["right"]["facts"] or not case["gold_reason"]:
+            raise ValueError(f"missing explicit gold evidence for {case['id']}")
+    leaked = [family for family, splits in family_splits.items() if len(splits) > 1]
+    if leaked:
+        raise ValueError(f"scenario families cross splits: {', '.join(sorted(leaked))}")
+    return {"cases": len(cases), "families": len(family_splits), "categories": len(REQUIRED_CATEGORIES)}
+
 
 def select_threshold(rows):
     development = [r for r in rows if r["split"] == "development" and r["scope_match"]]
