@@ -1,0 +1,35 @@
+{
+  "kind": "semantic-cache safety benchmark",
+  "dataset": "semantic-cache-baseline-v1",
+  "measurement_source": {
+    "model": "intfloat/multilingual-e5-small",
+    "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+    "file": "onnx/model_O4.onnx"
+  },
+  "threshold_selected_on": "development",
+  "threshold": 1.000001,
+  "acceptance": {
+    "max_holdout_false_hits": 0,
+    "min_holdout_true_hit_rate": 0.8
+  },
+  "metrics": {
+    "development": {
+      "pairs": 16,
+      "scope_blocked": 2,
+      "true_hits": 0,
+      "false_hits": 0,
+      "true_hit_rate": 0.0,
+      "false_hit_rate": 0.0
+    },
+    "holdout": {
+      "pairs": 8,
+      "scope_blocked": 1,
+      "true_hits": 0,
+      "false_hits": 0,
+      "true_hit_rate": 0.0,
+      "false_hit_rate": 0.0
+    }
+  },
+  "recommend_enable": false,
+  "fixture_sha256": "b160cc11e9c41195a52c1c8429e5c71c34b443291eb867ec8474c246b84dcda2"
+}
